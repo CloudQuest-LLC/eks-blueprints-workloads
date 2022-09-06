@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: eks-iam-test-s3
+  namespace: team-riker
+spec:
+  template:
+    metadata:
+      labels:
+        app: eks-iam-test-s3
+    spec:
+      serviceAccountName: irsa-demo
+      containers:
+      - name: eks-iam-test
+        image: amazon/aws-cli:latest
+        args: ["s3", "ls"]
+      restartPolicy: Never
